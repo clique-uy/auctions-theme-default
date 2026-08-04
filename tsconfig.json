@@ -1,0 +1,65 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "typeRoots": [
+      "../clique-auctions-frontend/node_modules/@types"
+    ],
+    "paths": {
+      "@/*": [
+        "../clique-auctions-frontend/*"
+      ],
+      "react": [
+        "../clique-auctions-frontend/node_modules/@types/react/index.d.ts"
+      ],
+      "react/jsx-runtime": [
+        "../clique-auctions-frontend/node_modules/@types/react/jsx-runtime.d.ts"
+      ],
+      "react/jsx-dev-runtime": [
+        "../clique-auctions-frontend/node_modules/@types/react/jsx-dev-runtime.d.ts"
+      ],
+      "react-dom": [
+        "../clique-auctions-frontend/node_modules/@types/react-dom/index.d.ts"
+      ],
+      "react-dom/*": [
+        "../clique-auctions-frontend/node_modules/@types/react-dom/*"
+      ],
+      "next": [
+        "../clique-auctions-frontend/node_modules/next/dist/server/next.d.ts"
+      ],
+      "next/*": [
+        "../clique-auctions-frontend/node_modules/next/*"
+      ],
+      "lenis": [
+        "../clique-auctions-frontend/node_modules/lenis/dist/lenis.d.ts"
+      ],
+      "lenis/react": [
+        "../clique-auctions-frontend/node_modules/lenis/dist/lenis-react.d.ts"
+      ],
+      "lucide-react": [
+        "../clique-auctions-frontend/node_modules/lucide-react"
+      ]
+    }
+  },
+  "include": [
+    "theme/**/*.ts",
+    "theme/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
