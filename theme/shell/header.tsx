@@ -5,9 +5,12 @@ import { Gavel, Search } from "lucide-react";
 import OptionalAuthControls from "@/components/auth/optional-auth-controls";
 import { useSiteIdentity } from "@/components/layout/site-identity-provider";
 import type { SiteHeaderThemeProps } from "@/components/theme/types";
+import { usePluginAvailable } from "@/components/plugins/plugin-availability";
 
 export default function Header({ navigation }: SiteHeaderThemeProps) {
   const identity = useSiteIdentity();
+
+
 
   return (
     <header className="starter-header theme-header">

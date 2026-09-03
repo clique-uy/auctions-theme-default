@@ -1,9 +1,18 @@
 /*
  * Clique Auctions starter theme.
  *
- * Keep all rules below `.clique-storefront` so storefront presentation cannot
+ * Keep presentation rules below `.clique-storefront` so storefront chrome cannot
  * leak into the canonical administration console.
+ *
+ * The platform loads Tailwind without Preflight, so the user-agent 8px body
+ * margin would otherwise frame the whole storefront in white. Reset it only on
+ * pages that render the storefront boundary.
  */
+html:has(.clique-storefront),
+body:has(.clique-storefront) {
+  margin: 0;
+}
+
 .clique-storefront {
   --starter-bg: #f6f7f8;
   --starter-surface: #ffffff;
@@ -2756,6 +2765,7 @@
 .clique-storefront .theme-auction-card__media {
   position: relative;
   min-height: 100%;
+  overflow: hidden;
   background:
     radial-gradient(ellipse at 70% 45%, rgba(197, 149, 63, .18), transparent 42%),
     #111;

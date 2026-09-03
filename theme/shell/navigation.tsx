@@ -5,13 +5,7 @@ import { useMemo } from "react";
 import { usePathname } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import { useStorefrontAuctions } from "@/components/theme/storefront-data";
-
-const links = [
-  { href: "/", label: "Home", match: (path: string) => path === "/" },
-  { href: "/faqs", label: "How It Works", match: (path: string) => path.startsWith("/faqs") },
-  { href: "/account/sales", label: "Sell", match: (path: string) => path.startsWith("/account/sales") },
-  { href: "/contact", label: "Contact", match: (path: string) => path.startsWith("/contact") },
-] as const;
+import { usePluginAvailable } from "@/components/plugins/plugin-availability";
 
 function humanizeSlug(slug: string) {
   return slug
@@ -33,6 +27,15 @@ function slugify(value: string) {
 
 export default function Navigation() {
   const pathname = usePathname() || "/";
+  const isConsignmentAvailable = usePluginAvailable("auction-consignment");
+
+  const links = [
+    { href: "/", label: "Home", match: (path: string) => path === "/" },
+    { href: "/faqs", label: "How It Works", match: (path: string) => path.startsWith("/faqs") },
+    isConsignmentAvailable ? { href: "/account/sales", label: "Sell", match: (path: string) => path.startsWith("/account/sales") } : null,
+    { href: "/contact", label: "Contact", match: (path: string) => path.startsWith("/contact") },
+  ].filter(Boolean) as { href: string; label: string; match: (path: string) => boolean }[];
+  
   const { auctions, loading } = useStorefrontAuctions({ limit: 100 });
   const categories = useMemo(() => {
     const bySlug = new Map<string, string>();
