@@ -1,6 +1,6 @@
-apiVersion: clique.dev/v3
+apiVersion: clique.dev/v5
 kind: FrontendTheme
 metadata:
   id: default
 spec:
-  contractVersion: auction-web-v2
+  contractVersion: auction-web-v5

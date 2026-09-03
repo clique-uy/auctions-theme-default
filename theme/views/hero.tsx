@@ -1,44 +1,102 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState, type FormEvent } from "react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  ChevronDown,
+  Gavel,
+  Lock,
+  Search,
+  ShieldCheck,
+  Tag,
+} from "lucide-react";
 import type { MarketHeroThemeProps } from "@/components/theme/types";
-import { cn } from "@/lib/utils";
+
+
+const badges = [
+  { icon: Gavel, label: "Thousands of Auctions" },
+  { icon: BadgeCheck, label: "Verified Sellers" },
+  { icon: Lock, label: "Secure Payments" },
+  { icon: ShieldCheck, label: "Buyer Protection" },
+] as const;
 
 export default function Hero({ auction }: MarketHeroThemeProps) {
+  const router = useRouter();
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("");
+  const description = auction.description?.trim()
+    || "From rare collectibles to luxury items, find treasures you won't see anywhere else.";
+
+  function onSearch(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const term = query.trim() || category.trim();
+    router.push(term ? `/search?q=${encodeURIComponent(term)}` : "/search");
+  }
+
   return (
-    <Link
-      id="featured-auction"
-      aria-label={`Ver subasta ${auction.title}`}
-      className={cn(
-        "group relative block h-[clamp(24rem,42vw,36rem)] overflow-hidden bg-theme-surface-strong text-theme-on-brand",
-        "after:pointer-events-none after:absolute after:inset-0 after:bg-[var(--theme-image-overlay)] after:content-['']",
-        "focus-visible:outline-offset-[-3px] max-md:h-[23rem]",
-      )}
-      href={auction.detailsHref}
-    >
-      {auction.imageUrl ? (
-        <img
-          className="absolute inset-0 size-full object-cover object-[center_44%] transition-transform duration-[var(--theme-motion-base)] ease-theme group-hover:scale-[1.015]"
-          src={auction.imageUrl}
-          alt=""
-        />
-      ) : (
-        <div
-          className="absolute inset-0 bg-theme-surface-strong"
-          aria-hidden="true"
-        />
-      )}
-      <div
-        className={cn(
-          "absolute bottom-[clamp(3.5rem,8vw,6.5rem)] left-[max(1.5rem,calc((100vw-var(--theme-content-width))/2+1.5rem))] z-[1] max-w-2xl pr-6",
-          "max-md:left-6 px-4",
-        )}
-      >
-        <h1 className=" m-0 mb-3 font-theme-display text-4xl leading-tight font-normal text-white max-md:text-3xl">
-          {auction.title}
-        </h1>
-        <p className="m-0 max-w-xl text-sm leading-relaxed text-theme-on-brand/85">
-          {auction.subtitle}
-        </p>
+    <section id="featured-auction" className="theme-split-hero" aria-label={auction.title}>
+      <div className={`theme-split-hero__media${auction.imageUrl ? "" : " is-empty"}`}>
+        {auction.imageUrl ? (
+          <img className="theme-split-hero__image" src={auction.imageUrl} alt="" />
+        ) : null}
       </div>
-    </Link>
+
+      <div className="theme-split-hero__inner">
+        <div className="theme-split-hero__copy">
+          <h1 className="theme-split-hero__headline">
+            <span>Discover. Bid. Win.</span>
+            <span className="theme-split-hero__accent">{auction.title}</span>
+          </h1>
+
+          <p className="theme-split-hero__description">{description}</p>
+          <p className="theme-split-hero__meta">
+            {auction.statusLabel}
+            {auction.subtitle ? ` · ${auction.subtitle}` : ""}
+          </p>
+
+          <form className="theme-split-hero__search" onSubmit={onSearch} role="search">
+            <label className="theme-split-hero__query">
+              <Search aria-hidden="true" />
+              <span className="sr-only">Search</span>
+              <input
+                type="search"
+                name="q"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search for items, categories or keywords"
+                autoComplete="off"
+              />
+            </label>
+
+            <button className="theme-split-hero__search-submit" type="submit">
+              Search
+            </button>
+          </form>
+
+          <div className="theme-split-hero__actions">
+            <Link className="theme-split-hero__cta theme-split-hero__cta--primary" href={"/auctions"}>
+              Browse Auctions
+              <ArrowRight aria-hidden="true" />
+            </Link>
+            <Link className="theme-split-hero__cta theme-split-hero__cta--secondary" href="/account/sales">
+              <Tag aria-hidden="true" />
+              Start Selling
+            </Link>
+          </div>
+
+          <ul className="theme-split-hero__badges">
+            {badges.map((item) => (
+              <li key={item.label}>
+                <item.icon aria-hidden="true" />
+                <span>{item.label}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
   );
 }

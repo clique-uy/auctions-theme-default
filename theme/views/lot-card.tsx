@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Clock } from "lucide-react";
 import type { LotCardThemeProps } from "@/components/theme/types";
 import { cn } from "@/lib/utils";
 
@@ -12,26 +13,29 @@ export default function LotCard({
   slots,
 }: LotCardThemeProps) {
   const fallbackPosition = fallbackPositions[lot.fallbackVariant];
+  const bidCountLabel = lot.bid
+    ? `${lot.bid.bidCount} ${lot.bid.bidCount === 1 ? "bid" : "bids"}`
+    : null;
 
   return (
-    <article className="group relative flex min-w-0 flex-col rounded-[var(--theme-card-radius)] bg-theme-surface p-3 shadow-theme-card transition-[transform,box-shadow,border-color] duration-[var(--theme-motion-base)] ease-theme hover:-translate-y-0.5 hover:border-theme-border-strong hover:shadow-theme-card-hover">
+    <article className="theme-lot-card relative flex min-w-0 flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-[0_10px_28px_rgba(16,16,16,0.06)]">
       <Link
         aria-label={`Ver ${lot.name}`}
-        className="absolute inset-0 z-[1] rounded-[inherit] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-theme-brand"
+        className="absolute inset-0 z-[1] rounded-[inherit] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#c5953f]"
         href={lot.detailsHref}
         prefetch
       >
         <span className="sr-only">Ver detalle de {lot.name}</span>
       </Link>
 
-      <div className="relative overflow-hidden rounded-[calc(var(--theme-radius-card)-0.25rem)] bg-theme-surface-subtle">
+      <div className="relative overflow-hidden bg-neutral-100">
         <div
           className={cn(
-            "absolute top-2.5 right-2.5 z-[3]",
-            "[&>button]:grid [&>button]:size-9 [&>button]:cursor-pointer [&>button]:place-items-center [&>button]:rounded-full [&>button]:border [&>button]:border-theme-border [&>button]:bg-theme-surface [&>button]:p-0 [&>button]:text-theme-text-muted [&>button]:shadow-theme-card [&>button]:transition-[color,transform] [&>button]:duration-[var(--theme-motion-fast)]",
-            "[&>button:hover]:scale-105 [&>button:hover]:text-theme-brand",
-            "[&>button:focus-visible]:outline [&>button:focus-visible]:outline-[3px] [&>button:focus-visible]:outline-offset-2 [&>button:focus-visible]:outline-theme-brand",
-            "[&>button.active]:text-theme-brand",
+            "absolute top-3 right-3 z-[3]",
+            "[&>button]:relative [&>button]:inset-auto [&>button]:grid [&>button]:size-9 [&>button]:cursor-pointer [&>button]:place-items-center [&>button]:rounded-full [&>button]:border-0 [&>button]:bg-white [&>button]:p-0 [&>button]:text-neutral-500 [&>button]:shadow-md [&>button]:transition-[color,transform] [&>button]:duration-150",
+            "[&>button:hover]:scale-105 [&>button:hover]:text-[#c5953f]",
+            "[&>button:focus-visible]:outline [&>button:focus-visible]:outline-[3px] [&>button:focus-visible]:outline-offset-2 [&>button:focus-visible]:outline-[#c5953f]",
+            "[&>button.active]:text-[#c5953f]",
             "[&>button_svg]:size-[18px] [&>button_svg]:fill-transparent [&>button_svg]:stroke-current [&>button_svg]:[stroke-width:1.8] [&>button_svg]:[stroke-linecap:round] [&>button_svg]:[stroke-linejoin:round]",
             "[&>button.active_svg]:fill-current",
           )}
@@ -40,7 +44,7 @@ export default function LotCard({
         </div>
         {lot.imageUrl ? (
           <img
-            className={cn("aspect-[4/3] w-full object-cover transition-transform duration-[var(--theme-motion-base)] ease-theme group-hover:scale-[1.025]", fallbackPosition)}
+            className={cn("aspect-[4/3] w-full object-cover", fallbackPosition)}
             src={lot.imageUrl}
             alt=""
           />
@@ -55,17 +59,16 @@ export default function LotCard({
         )}
       </div>
 
-      <div className="relative z-[2] mt-3 flex flex-1 flex-col gap-1.5">
-        <div className="text-sm font-semibold text-theme-brand">
-          {slots.countdown}
-        </div>
-
-        <h3 className="m-0 font-theme-display text-lg leading-snug font-normal text-theme-text">
+      <div className="pointer-events-none relative z-[2] flex flex-1 flex-col px-4 pt-4 pb-4">
+        <h3 className="m-0 line-clamp-2 text-[17px] leading-snug font-bold text-neutral-900">
           {lot.name}
         </h3>
+        <p className="mt-1 mb-0 truncate text-sm text-neutral-500">
+          {lot.auction.title}
+        </p>
 
         {lot.auction.format === "live" && (
-          <small className="text-xs text-theme-text-muted">
+          <small className="mt-1 text-xs text-neutral-500">
             {lot.status === "open"
               ? "Lote activo ahora"
               : lot.status === "closed"
@@ -74,40 +77,37 @@ export default function LotCard({
           </small>
         )}
 
-        <p className="m-0 truncate text-sm text-theme-text-muted">
-          {lot.auction.title}
-        </p>
-
-        {lot.bid && (
-          <div className="mt-0.5 text-xl font-bold text-theme-text">
-            {lot.bid.currentAmountLabel}
-          </div>
-        )}
-
-        {lot.bid && (
-          <small className="text-xs text-theme-text-muted">
-            {lot.bid.bidCount} {lot.bid.bidCount === 1 ? "oferta" : "ofertas"}
-            {" · "}Próxima {lot.bid.minimumBidLabel}
-          </small>
-        )}
-
         {lot.legacySale && (
-          <small className="text-xs text-theme-warning">
+          <small className="mt-2 text-xs text-amber-800">
             Modalidad heredada: transacciones en línea no disponibles
           </small>
         )}
 
         {lot.bid?.youAreWinning && (
-          <p className="m-0 text-sm font-semibold text-theme-success">Vas ganando este lote.</p>
+          <p className="mt-2 mb-0 text-sm font-semibold text-emerald-700">
+            Vas ganando este lote.
+          </p>
         )}
         {lot.bid?.youWon && (
-          <p className="m-0 text-sm font-semibold text-theme-success">
-            Terminaste con la oferta más alta. El resultado es provisional
-            hasta la adjudicación del rematador.
+          <p className="mt-2 mb-0 text-sm font-semibold text-emerald-700">
+            Oferta más alta — pendiente de adjudicación.
           </p>
         )}
 
-        <div className="relative z-[2] mt-auto pt-2">{slots.bidControl}</div>
+        <div className="mt-auto flex items-end justify-between gap-3 pt-4">
+          <div className="min-w-0 text-[22px] leading-none font-bold text-[#c5953f]">
+            {lot.bid?.currentAmountLabel ?? "—"}
+          </div>
+          <div className="flex min-w-0 flex-col items-end gap-1.5">
+            {bidCountLabel ? (
+              <span className="text-xs text-neutral-400">{bidCountLabel}</span>
+            ) : null}
+            <div className="theme-lot-card__countdown flex items-center gap-1 text-[13px] font-medium text-[#d64545]">
+              <Clock aria-hidden="true" className="size-3.5 shrink-0" strokeWidth={2.2} />
+              {slots.countdown}
+            </div>
+          </div>
+        </div>
       </div>
     </article>
   );

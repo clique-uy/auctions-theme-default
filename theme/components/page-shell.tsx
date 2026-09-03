@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { SiteFooter, SiteHeader } from "./site-chrome";
+import { SiteFooter, SiteHeader } from "@/components/layout/site-chrome";
 
 export default function PageShell({
   children,

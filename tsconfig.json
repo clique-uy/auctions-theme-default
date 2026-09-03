@@ -21,37 +21,37 @@
     ],
     "paths": {
       "@/*": [
-        "../clique-auctions-frontend/*"
+        "../clique-auctions-landing/frontend/*"
       ],
       "react": [
-        "../clique-auctions-frontend/node_modules/@types/react/index.d.ts"
+        "../clique-auctions-landing/frontend/node_modules/@types/react/index.d.ts"
       ],
       "react/jsx-runtime": [
-        "../clique-auctions-frontend/node_modules/@types/react/jsx-runtime.d.ts"
+        "../clique-auctions-landing/frontend/node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "react/jsx-dev-runtime": [
-        "../clique-auctions-frontend/node_modules/@types/react/jsx-dev-runtime.d.ts"
+        "../clique-auctions-landing/frontend/node_modules/@types/react/jsx-dev-runtime.d.ts"
       ],
       "react-dom": [
-        "../clique-auctions-frontend/node_modules/@types/react-dom/index.d.ts"
+        "../clique-auctions-landing/frontend/node_modules/@types/react-dom/index.d.ts"
       ],
       "react-dom/*": [
-        "../clique-auctions-frontend/node_modules/@types/react-dom/*"
+        "../clique-auctions-landing/frontend/node_modules/@types/react-dom/*"
       ],
       "next": [
-        "../clique-auctions-frontend/node_modules/next/dist/server/next.d.ts"
+        "../clique-auctions-landing/frontend/node_modules/next/dist/server/next.d.ts"
       ],
       "next/*": [
-        "../clique-auctions-frontend/node_modules/next/*"
+        "../clique-auctions-landing/frontend/node_modules/next/*"
       ],
       "lenis": [
-        "../clique-auctions-frontend/node_modules/lenis/dist/lenis.d.ts"
+        "../clique-auctions-landing/frontend/node_modules/lenis/dist/lenis.d.ts"
       ],
       "lenis/react": [
-        "../clique-auctions-frontend/node_modules/lenis/dist/lenis-react.d.ts"
+        "../clique-auctions-landing/frontend/node_modules/lenis/dist/lenis-react.d.ts"
       ],
       "lucide-react": [
-        "../clique-auctions-frontend/node_modules/lucide-react"
+        "../clique-auctions-landing/frontend/node_modules/lucide-react"
       ]
     }
   },

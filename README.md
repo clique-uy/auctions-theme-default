@@ -18,14 +18,11 @@ cd ../my-saas
 npm run theme:check -- /home/pipe/repos/auctions-theme-default
 ```
 
-Customize the five typed presentation entries under `theme/pages/`.
-The canonical platform supplies their functional `market` and `account`
-slots. Reusable theme-owned `.ts` and `.tsx` files belong anywhere under
-`theme/components/`. Optional views under `theme/views/` override market
-presentation (hero, grids, cards, lot detail, auction detail, live auction, wishlist),
-account presentation (dashboard, cards, gate, profile), auth controls, and the
-notification bell while the platform supplies auth widgets and behavioral slots.
-Arbitrary Next.js routes are not supported.
+Register all public v4 overrides in `theme/theme.tsx` with `defineTheme`.
+Page overrides receive the canonical page-builder `content` slot; omitted
+pages, shell elements, components, views, and system views use platform
+defaults. Private implementations live in the organized folders below
+`theme/`. Arbitrary Next.js routes are not supported.
 
 Theme code may import approved browser dependencies installed by the canonical
 frontend, including `lucide-react`, `lenis`, `lenis/react`, and
@@ -45,4 +42,3 @@ Register the theme only after its source repository is ready:
 cd ../my-saas
 npm run theme:register -- --path /home/pipe/repos/auctions-theme-default --name "default"
 ```
-# auctions-theme-default
