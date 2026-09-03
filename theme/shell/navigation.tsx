@@ -31,6 +31,7 @@ export default function Navigation() {
 
   const links = [
     { href: "/", label: "Home", match: (path: string) => path === "/" },
+    { href: "/auctions", label: "Auctions", match: (path: string) => path.startsWith("/auctions") },
     { href: "/faqs", label: "How It Works", match: (path: string) => path.startsWith("/faqs") },
     isConsignmentAvailable ? { href: "/account/sales", label: "Sell", match: (path: string) => path.startsWith("/account/sales") } : null,
     { href: "/contact", label: "Contact", match: (path: string) => path.startsWith("/contact") },

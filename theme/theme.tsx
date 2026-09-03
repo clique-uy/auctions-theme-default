@@ -21,6 +21,7 @@ import QuestionAndAnswer from "./blocks/question-and-answer";
 import HeroBlock from "./blocks/hero";
 import AuctionCard from "./views/auction-card";
 import CategoryGridBlock from "./views/category-grid";
+import Search from "./views/search";
 export default defineTheme({
   meta: { id: "default", contractVersion: "auction-web-v5" },
   blocks: {
@@ -33,6 +34,6 @@ export default defineTheme({
   pages: { Home, Auction, Lot, Account, Wishlist: WishlistPage, Search: SearchPage },
   shell: { Header, Footer, Navigation },
   components: { AuthControls, BidControl, NotificationBell, LotCard, AuctionCard },
-  views: { Hero, LiveAuction, Wishlist, LotGrid, CategoryGrid: CategoryGridBlock },
+  views: { Hero, LiveAuction, Wishlist, LotGrid, CategoryGrid: CategoryGridBlock, Search },
   system: { PreviewAccess },
 });

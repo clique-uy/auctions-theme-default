@@ -31,26 +31,18 @@ export default function LotGrid({
 
   if (context === "wishlist") {
     return (
-      <>
-        <header className="mb-6 flex items-baseline justify-between gap-4 border-b border-neutral-200 pb-4">
-          <h2 className="m-0 text-lg font-bold text-neutral-950">
-            {title}
-          </h2>
-          {meta ? (
-            <span className="text-xs font-medium text-neutral-500">
-              {meta}
-            </span>
-          ) : null}
+      <section className="theme-lot-grid">
+        <header className="theme-lot-grid__heading">
+          <h2>{title}</h2>
+          {meta ? <span>{meta}</span> : null}
         </header>
-        <div className="grid grid-cols-4 gap-5 max-[1000px]:grid-cols-3 max-md:grid-cols-2 max-[560px]:grid-cols-1">
-          {cards}
-        </div>
-      </>
+        <div className="theme-lot-grid__items">{cards}</div>
+      </section>
     );
   }
 
   return (
-    <section id="featured-lots" className="lots-section lot-list-section">
+    <section id="featured-lots" className="lots-section lot-list-section p-4 pb-12">
       <h2 className="section-title lot-list-title">{title}</h2>
       <div className="lot-grid auction-grid lot-list">{cards}</div>
     </section>

@@ -14,6 +14,7 @@ import {
   Tag,
 } from "lucide-react";
 import type { MarketHeroThemeProps } from "@/components/theme/types";
+import { usePluginAvailable } from "@/components/plugins/plugin-availability";
 
 
 const badges = [
@@ -35,6 +36,9 @@ export default function Hero({ auction }: MarketHeroThemeProps) {
     const term = query.trim() || category.trim();
     router.push(term ? `/search?q=${encodeURIComponent(term)}` : "/search");
   }
+
+  const isConsignmentAvailable = usePluginAvailable("auction-consignment");
+
 
   return (
     <section id="featured-auction" className="theme-split-hero" aria-label={auction.title}>
@@ -81,10 +85,10 @@ export default function Hero({ auction }: MarketHeroThemeProps) {
               Browse Auctions
               <ArrowRight aria-hidden="true" />
             </Link>
-            <Link className="theme-split-hero__cta theme-split-hero__cta--secondary" href="/account/sales">
+            {isConsignmentAvailable ? <Link className="theme-split-hero__cta theme-split-hero__cta--secondary" href="/account/sales">
               <Tag aria-hidden="true" />
               Start Selling
-            </Link>
+            </Link> : null}
           </div>
 
           <ul className="theme-split-hero__badges">
